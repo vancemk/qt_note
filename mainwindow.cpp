@@ -59,10 +59,14 @@ void MainWindow::on_treeView_clicked(const QModelIndex &index)
         ui->LabFileSize->setText(QString::asprintf("%.1f MB",sz/1024.0));
 
     QString aFileName = model->filePath(index);
+    if(model->isDir(index))
+        return;
+
     if (aFileName.isEmpty())
         return;
 
-    openTextByIODevice(aFileName);
+    // openTextByIODevice(aFileName);
+    loadFile(aFileName);
 }
 
 
@@ -155,6 +159,8 @@ void MainWindow::closeEvent(QCloseEvent *event){
 // load file
 bool MainWindow::loadFile(const QString &fileName){
     QFile file(fileName); // new QFile Object
+    if (!file.exists()) // 文件不存在
+        return false;
     if(!file.open(QFile::ReadOnly | QFile::Text)){
         QMessageBox::warning(this, tr("Notepad"),
             tr("Can't read file %1:\n%2.").arg(fileName).arg(file.errorString()));
