@@ -1,0 +1,13 @@
+INPUT(
+./release/main.o
+./release/qwmainwindow.o
+./release/qformdoc.o
+./release/qwdialogheaders.o
+./release/qwdialogsize.o
+./release/dirfileop.o
+./release/qrc_res.o
+./release/moc_qwmainwindow.o
+./release/moc_qformdoc.o
+./release/moc_qwdialogheaders.o
+./release/moc_qwdialogsize.o
+);
