@@ -36,6 +36,7 @@ public:
     QAction *actDoc_Open;
     QAction *actWindow;
     QAction *actWidget;
+    QAction *actionNewNoteBook;
     QWidget *centralWidget;
     QSplitter *splitter;
     QGroupBox *groupBox;
@@ -83,6 +84,11 @@ public:
         QIcon icon5;
         icon5.addFile(QStringLiteral(":/images/images/804.bmp"), QSize(), QIcon::Normal, QIcon::Off);
         actWidget->setIcon(icon5);
+        actionNewNoteBook = new QAction(QWMainWindow);
+        actionNewNoteBook->setObjectName(QStringLiteral("actionNewNoteBook"));
+        QIcon icon6;
+        icon6.addFile(QStringLiteral(":/images/images/516.bmp"), QSize(), QIcon::Normal, QIcon::Off);
+        actionNewNoteBook->setIcon(icon6);
         centralWidget = new QWidget(QWMainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         splitter = new QSplitter(centralWidget);
@@ -94,6 +100,7 @@ public:
         comboBox = new QComboBox(groupBox);
         comboBox->setObjectName(QStringLiteral("comboBox"));
         comboBox->setGeometry(QRect(30, 20, 69, 20));
+        comboBox->setEditable(false);
         splitter->addWidget(groupBox);
         tabWidget = new QTabWidget(splitter);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
@@ -129,8 +136,9 @@ public:
         menuBar->addAction(menu_2->menuAction());
         menuBar->addAction(menu_3->menuAction());
         mainToolBar->addAction(actWidgetInsite);
-        mainToolBar->addAction(actWidget);
+        mainToolBar->addAction(actionNewNoteBook);
         mainToolBar->addSeparator();
+        mainToolBar->addAction(actWidget);
         mainToolBar->addAction(actWindowInsite);
         mainToolBar->addAction(actWindow);
         mainToolBar->addSeparator();
@@ -171,6 +179,10 @@ public:
         actWidget->setText(QApplication::translate("QWMainWindow", "\347\213\254\347\253\213Widget\347\252\227\345\217\243", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
         actWidget->setToolTip(QApplication::translate("QWMainWindow", "\346\226\260\345\273\272Widget\347\213\254\347\253\213\347\252\227\345\217\243", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
+        actionNewNoteBook->setText(QApplication::translate("QWMainWindow", "\346\226\260\345\273\272\347\254\224\350\256\260\346\234\254", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        actionNewNoteBook->setToolTip(QApplication::translate("QWMainWindow", "\345\210\233\345\273\272\346\226\260\347\232\204\347\254\224\350\256\260\346\234\254", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
         groupBox->setTitle(QApplication::translate("QWMainWindow", "GroupBox", Q_NULLPTR));
         menu->setTitle(QApplication::translate("QWMainWindow", "\346\226\207\344\273\266", Q_NULLPTR));

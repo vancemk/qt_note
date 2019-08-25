@@ -1,6 +1,7 @@
 ﻿#ifndef QWMAINWINDOW_H
 #define QWMAINWINDOW_H
 
+/*
 #include <QMainWindow>
 #include <QVBoxLayout>
 #include <QGridLayout>
@@ -14,12 +15,15 @@
 #include <QFileInfoList>
 #include <iostream>
 #include <string>
-
+*/
+#include "publicheads.h"
 #include "dirfileop.h"
-//#include <QHBoxLayout>>
-
 #include    "qformdoc.h"
+#include "note_global.h"
+// #include "note_extern.h"
 // #include    "qformtable.h"
+
+
 
 namespace Ui {
 class QWMainWindow;
@@ -60,6 +64,8 @@ private slots:
     void on_tabWidget_currentChanged(int index);
 
     void on_comboBox_currentIndexChanged(int index);
+
+    void on_actionNewNoteBook_triggered();
 
 private:
     Ui::QWMainWindow *ui;

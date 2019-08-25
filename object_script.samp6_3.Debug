@@ -5,6 +5,7 @@ INPUT(
 ./debug/qwdialogheaders.o
 ./debug/qwdialogsize.o
 ./debug/dirfileop.o
+./debug/note_global.o
 ./debug/qrc_res.o
 ./debug/moc_qwmainwindow.o
 ./debug/moc_qformdoc.o

@@ -24,17 +24,20 @@ QWMainWindow::QWMainWindow(QWidget *parent) :
     ui->setupUi(this);
     //QWidget *centralWidget = new QWidget;
 
+    //memcpy(WORKDIR1,"D:\\test223\\ouhengli\\", strlen("D:\\test223\\ouhengli\\")+1);
+
     ui->tabWidget->setVisible(false);
     ui->tabWidget->clear();//清除所有页面
     ui->tabWidget->tabsClosable(); //Page有关闭按钮，可被关闭
     ui->tabWidget->setAutoFillBackground(true);
-    QAction *qAction = new QAction("Add");
+    // QAction *qAction = new QAction("Add");
 //    ui->tabWidget->addAction(qAction);
 //    ui->tabWidget->setVisible(true);
 
     ui->comboBox->setVisible(true);
     ui->comboBox->show();
-    ui->comboBox->setEditable(true);
+    // ui->comboBox->setEditable(true);
+    //ui->comboBox->set
 
     QFileInfoList qDirList;
     getDirListOnly(QString(WORKDIR), qDirList);
@@ -85,11 +88,11 @@ void QWMainWindow::on_actWidgetInsite_triggered()
     int cur;
     if (0 == ui->tabWidget->count()) {
         cur=ui->tabWidget->addTab(new QFormDoc(this),
-            QString::asprintf("New Tab %d",ui->tabWidget->count()));
+            QString::asprintf("New Tab %d",ui->tabWidget->count()+1));
     }
     else {
         cur=ui->tabWidget->addTab((new QFormDoc(this)),
-            QString::asprintf("New Tab %d",ui->tabWidget->count()));
+            QString::asprintf("New Tab %d",ui->tabWidget->count()+1));
     }
 
     ui->tabWidget->setCurrentIndex(cur);
@@ -146,8 +149,18 @@ void QWMainWindow::on_comboBox_currentIndexChanged(int index)
 
 
 
+void QWMainWindow::on_actionNewNoteBook_triggered()
+{ //输入字符串
+    QString dlgTitle="输入文字对话框";
+    QString txtLabel="请输入文件名";
+    QString defaultInput="";
+    QLineEdit::EchoMode echoMode=QLineEdit::Normal;//正常文字输入
+    // QLineEdit::EchoMode echoMode=QLineEdit::Password;//密码输入
 
-
+    bool ok=false;
+    QString text = QInputDialog::getText(this, dlgTitle,txtLabel, echoMode,defaultInput, &ok);
+    cout << text.toStdString().data() << endl;
+}
 
 
 

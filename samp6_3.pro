@@ -18,14 +18,17 @@ SOURCES += main.cpp\
     qformdoc.cpp \
     qwdialogheaders.cpp \
     qwdialogsize.cpp \
-    dirfileop.cpp
+    dirfileop.cpp \
+    note_global.cpp
 
 HEADERS  += qwmainwindow.h \
     #qformtable.h \
     qformdoc.h \
     qwdialogheaders.h \
     qwdialogsize.h \
-    dirfileop.h
+    dirfileop.h \
+    publicheads.h \
+    note_global.h
 
 FORMS    += qwmainwindow.ui \
     #qformtable.ui \

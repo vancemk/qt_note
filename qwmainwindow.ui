@@ -39,6 +39,9 @@
         <height>20</height>
        </rect>
       </property>
+      <property name="editable">
+       <bool>false</bool>
+      </property>
      </widget>
     </widget>
     <widget class="QTabWidget" name="tabWidget">
@@ -102,8 +105,9 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actWidgetInsite"/>
-   <addaction name="actWidget"/>
+   <addaction name="actionNewNoteBook"/>
    <addaction name="separator"/>
+   <addaction name="actWidget"/>
    <addaction name="actWindowInsite"/>
    <addaction name="actWindow"/>
    <addaction name="separator"/>
@@ -180,6 +184,18 @@
    </property>
    <property name="toolTip">
     <string>新建Widget独立窗口</string>
+   </property>
+  </action>
+  <action name="actionNewNoteBook">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/images/images/516.bmp</normaloff>:/images/images/516.bmp</iconset>
+   </property>
+   <property name="text">
+    <string>新建笔记本</string>
+   </property>
+   <property name="toolTip">
+    <string>创建新的笔记本</string>
    </property>
   </action>
  </widget>

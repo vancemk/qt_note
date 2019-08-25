@@ -5,6 +5,7 @@ INPUT(
 ./release/qwdialogheaders.o
 ./release/qwdialogsize.o
 ./release/dirfileop.o
+./release/note_global.o
 ./release/qrc_res.o
 ./release/moc_qwmainwindow.o
 ./release/moc_qformdoc.o
