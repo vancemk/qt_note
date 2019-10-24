@@ -25,9 +25,10 @@ QFileInfoList &getFileListOnly(const QString &pFilePath, QFileInfoList &pFileLis
 
 /**
  * @brief 创建文件夹
+ * @param pFilePath
  */
 bool createFolder(const QString &pFilePath){
-    QString dir_str = WORKDIR1 + pFilePath;
+    QString dir_str = pFilePath;
 
     // 检查目录是否存在，若不存在则新建
     QDir dir;

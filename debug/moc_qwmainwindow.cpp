@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_QWMainWindow_t {
-    QByteArrayData data[8];
-    char stringdata0[171];
+    QByteArrayData data[12];
+    char stringdata0[274];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -38,14 +38,21 @@ QT_MOC_LITERAL(3, 45, 5), // "index"
 QT_MOC_LITERAL(4, 51, 28), // "on_actWidgetInsite_triggered"
 QT_MOC_LITERAL(5, 80, 27), // "on_tabWidget_currentChanged"
 QT_MOC_LITERAL(6, 108, 31), // "on_comboBox_currentIndexChanged"
-QT_MOC_LITERAL(7, 140, 30) // "on_actionNewNoteBook_triggered"
+QT_MOC_LITERAL(7, 140, 30), // "on_actionNewNoteBook_triggered"
+QT_MOC_LITERAL(8, 171, 26), // "on_tabWidget_tabBarClicked"
+QT_MOC_LITERAL(9, 198, 42), // "on_QWMainWindow_customContext..."
+QT_MOC_LITERAL(10, 241, 3), // "pos"
+QT_MOC_LITERAL(11, 245, 28) // "on_action_N_Ctrl_N_triggered"
 
     },
     "QWMainWindow\0on_tabWidget_tabCloseRequested\0"
     "\0index\0on_actWidgetInsite_triggered\0"
     "on_tabWidget_currentChanged\0"
     "on_comboBox_currentIndexChanged\0"
-    "on_actionNewNoteBook_triggered"
+    "on_actionNewNoteBook_triggered\0"
+    "on_tabWidget_tabBarClicked\0"
+    "on_QWMainWindow_customContextMenuRequested\0"
+    "pos\0on_action_N_Ctrl_N_triggered"
 };
 #undef QT_MOC_LITERAL
 
@@ -55,7 +62,7 @@ static const uint qt_meta_data_QWMainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       5,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -63,17 +70,23 @@ static const uint qt_meta_data_QWMainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    1,   39,    2, 0x08 /* Private */,
-       4,    0,   42,    2, 0x08 /* Private */,
-       5,    1,   43,    2, 0x08 /* Private */,
-       6,    1,   46,    2, 0x08 /* Private */,
-       7,    0,   49,    2, 0x08 /* Private */,
+       1,    1,   54,    2, 0x08 /* Private */,
+       4,    0,   57,    2, 0x08 /* Private */,
+       5,    1,   58,    2, 0x08 /* Private */,
+       6,    1,   61,    2, 0x08 /* Private */,
+       7,    0,   64,    2, 0x08 /* Private */,
+       8,    1,   65,    2, 0x08 /* Private */,
+       9,    1,   68,    2, 0x08 /* Private */,
+      11,    0,   71,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void, QMetaType::Int,    3,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,    3,
     QMetaType::Void, QMetaType::Int,    3,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int,    3,
+    QMetaType::Void, QMetaType::QPoint,   10,
     QMetaType::Void,
 
        0        // eod
@@ -90,6 +103,9 @@ void QWMainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 2: _t->on_tabWidget_currentChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 3: _t->on_comboBox_currentIndexChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 4: _t->on_actionNewNoteBook_triggered(); break;
+        case 5: _t->on_tabWidget_tabBarClicked((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 6: _t->on_QWMainWindow_customContextMenuRequested((*reinterpret_cast< const QPoint(*)>(_a[1]))); break;
+        case 7: _t->on_action_N_Ctrl_N_triggered(); break;
         default: ;
         }
     }
@@ -120,13 +136,13 @@ int QWMainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 8;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 5)
+        if (_id < 8)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 5;
+        _id -= 8;
     }
     return _id;
 }

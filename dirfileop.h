@@ -5,6 +5,7 @@
 #include "note_global.h"
 
 
+
 /**
  * @brief 获取 pFilePath 路径下所有文件夹
  * @param pFilePath 指定路径
@@ -19,5 +20,9 @@ QFileInfoList &getDirListOnly(const QString &pFilePath, QFileInfoList &pDirList)
  */
 QFileInfoList &getFileListOnly(const QString &pFilePath, QFileInfoList &pFileList);
 
+/**
+ * @brief 创建文件夹
+ * @param pFilePath
+ */
 bool createFolder(const QString &pFilePath);
 #endif // DIRFILEOP_H

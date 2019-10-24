@@ -21,6 +21,7 @@ public:
 
     void    loadFromFile(const QString& aFileName);
 
+
 private slots:
     void on_actOpen_triggered();
 

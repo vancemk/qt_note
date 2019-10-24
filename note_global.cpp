@@ -1,3 +1,3 @@
 ﻿#include "note_global.h"
 
-const char *WORKDIR1="HELLO WORLD";
+const char *WORKDIR1 = "D:\\test223\\ouhengli\\";

@@ -45,6 +45,8 @@ public:
     ~QWMainWindow();
 
 //    void    setCurrentTabText(const QString &text);
+    void updateComboBox();
+    void renameCurTab(const QString& pFileName);
 
 private slots:
     void on_tabWidget_tabCloseRequested(int index);
@@ -66,6 +68,14 @@ private slots:
     void on_comboBox_currentIndexChanged(int index);
 
     void on_actionNewNoteBook_triggered();
+
+    void on_tabWidget_tabBarClicked(int index);
+
+    void on_QWMainWindow_customContextMenuRequested(const QPoint &pos);
+
+    //void on_actWindowInsite_triggered();
+
+    void on_action_N_Ctrl_N_triggered();
 
 private:
     Ui::QWMainWindow *ui;

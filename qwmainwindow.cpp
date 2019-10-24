@@ -30,28 +30,8 @@ QWMainWindow::QWMainWindow(QWidget *parent) :
     ui->tabWidget->clear();//清除所有页面
     ui->tabWidget->tabsClosable(); //Page有关闭按钮，可被关闭
     ui->tabWidget->setAutoFillBackground(true);
-    // QAction *qAction = new QAction("Add");
-//    ui->tabWidget->addAction(qAction);
-//    ui->tabWidget->setVisible(true);
 
-    ui->comboBox->setVisible(true);
-    ui->comboBox->show();
-    // ui->comboBox->setEditable(true);
-    //ui->comboBox->set
-
-    QFileInfoList qDirList;
-    getDirListOnly(QString(WORKDIR), qDirList);
-    QFileInfo fileInfo;
-
-    for (int i=0; i<qDirList.size(); ++i){
-        fileInfo = qDirList.at(i);
-        std::cout<< qPrintable(QString(fileInfo.fileName()))
-                 << endl;
-        ui->comboBox->insertItem(i, fileInfo.fileName());
-    }
-
-
-    ui->comboBox->setGeometry(QRect(4,5, 180, 25));
+    updateComboBox();
 
     ui->groupBox->setTitle("");
 
@@ -147,7 +127,25 @@ void QWMainWindow::on_comboBox_currentIndexChanged(int index)
     }
 }
 
+void QWMainWindow::updateComboBox(){
+    ui->comboBox->clear();
+    ui->comboBox->setVisible(true);
+    ui->comboBox->show();
+    // ui->comboBox->setEditable(true);
 
+    QFileInfoList qDirList;
+    getDirListOnly(QString(WORKDIR), qDirList);
+    QFileInfo fileInfo;
+
+    for (int i=0; i<qDirList.size(); ++i){
+        fileInfo = qDirList.at(i);
+        std::cout<< qPrintable(QString(fileInfo.fileName()))
+                 << endl;
+        ui->comboBox->insertItem(i, fileInfo.fileName());
+    }
+
+    ui->comboBox->setGeometry(QRect(4,5, 180, 25));
+}
 
 void QWMainWindow::on_actionNewNoteBook_triggered()
 { //输入字符串
@@ -159,9 +157,92 @@ void QWMainWindow::on_actionNewNoteBook_triggered()
 
     bool ok=false;
     QString text = QInputDialog::getText(this, dlgTitle,txtLabel, echoMode,defaultInput, &ok);
+    if(text.trimmed() == ""){
+        return;
+    }
     cout << text.toStdString().data() << endl;
+
+    if (!createFolder(WORKDIR1+text)){
+        return;
+    }
+    updateComboBox();
+}
+
+void QWMainWindow::renameCurTab(const QString& pFileName){
+    int index = ui->tabWidget->currentIndex();
+    cout <<  "current index is: " << index << endl;
 }
 
 
 
+void QWMainWindow::on_tabWidget_tabBarClicked(int index)
+{
+    // index = ui->tabWidget->currentIndex();
 
+    cout <<  "current index is: " << index << endl;
+}
+
+void QWMainWindow::on_QWMainWindow_customContextMenuRequested(const QPoint &pos)
+{
+    //创建菜单对象
+    QMenu *pMenu = new QMenu(this);
+
+    QAction *pNewTask = new QAction(tr("新建任务"), this);
+    QAction *pEditTask = new QAction(tr("设置任务"), this);
+    QAction *pDeleteTask = new QAction(tr("删除任务"), this);
+
+    QAction *pToolRenName = new QAction(tr("改名工具"), this);
+    QAction *pToolEdot = new QAction(tr("设置工具"), this);
+    QAction *pToolDelete = new QAction(tr("删除工具"), this);
+
+    //1:新建任务 2:设置任务 3:删除任务 4:改名工具 5:设置工具 6:删除工具
+    pNewTask->setData(1);
+    pEditTask->setData(2);
+    pDeleteTask ->setData(3);
+    pToolRenName->setData(4);
+    pToolEdot->setData(5);
+    pToolDelete ->setData(6);
+
+    //把QAction对象添加到菜单上
+    pMenu->addAction(pNewTask);
+    pMenu->addAction(pEditTask);
+    pMenu->addAction(pDeleteTask);
+    pMenu->addAction(pToolRenName);
+    pMenu->addAction(pToolEdot);
+    pMenu->addAction(pToolDelete);
+
+    //连接鼠标右键点击信号
+    connect(pNewTask, SIGNAL(triggered()), this, SLOT(onTaskBoxContextMenuEvent()));
+    connect(pEditTask, SIGNAL(triggered()), this, SLOT(onTaskBoxContextMenuEvent()));
+    connect(pDeleteTask, SIGNAL(triggered()), SLOT(onTaskBoxContextMenuEvent()));
+    connect(pToolRenName, SIGNAL(triggered()), this, SLOT(onTaskBoxContextMenuEvent()));
+    connect(pToolEdot, SIGNAL(triggered()), this, SLOT(onTaskBoxContextMenuEvent()));
+    connect(pToolDelete, SIGNAL(triggered()), SLOT(onTaskBoxContextMenuEvent()));
+
+    //在鼠标右键点击的地方显示菜单
+    pMenu->exec(cursor().pos());
+
+    //释放内存
+    QList<QAction*> list = pMenu->actions();
+    foreach (QAction* pAction, list) delete pAction;
+    delete pMenu;
+}
+
+// add by yg@20191024
+void QWMainWindow::on_action_N_Ctrl_N_triggered()
+{
+    //创建QFormDoc窗体，并在tabWidget中显示
+    int cur;
+    if (0 == ui->tabWidget->count()) {
+        cur=ui->tabWidget->addTab(new QFormDoc(this),
+            QString::asprintf("New Tab %d",ui->tabWidget->count()+1));
+    }
+    else {
+        cur=ui->tabWidget->addTab((new QFormDoc(this)),
+            QString::asprintf("New Tab %d",ui->tabWidget->count()+1));
+    }
+
+    ui->tabWidget->setCurrentIndex(cur);
+    ui->tabWidget->setVisible(true);
+
+}
