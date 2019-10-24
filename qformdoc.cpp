@@ -18,7 +18,7 @@ QFormDoc::QFormDoc(QWidget *parent) :
 {
     ui->setupUi(this);
 
-//使用UI设计的Actions设计工具栏
+    // 使用UI设计的Actions设计工具栏
     QToolBar* locToolBar = new QToolBar(tr("文档"),this); //创建工具栏
     locToolBar->addAction(ui->actOpen);
     locToolBar->addAction(ui->actFont);
@@ -32,7 +32,7 @@ QFormDoc::QFormDoc(QWidget *parent) :
     locToolBar->addAction(ui->actClose);
 
     locToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-//    locToolBar->setAutoFillBackground(true);
+    // locToolBar->setAutoFillBackground(true);
 
     QVBoxLayout *Layout = new QVBoxLayout();
     Layout->addWidget(locToolBar); //设置工具栏和编辑器上下布局
@@ -40,9 +40,11 @@ QFormDoc::QFormDoc(QWidget *parent) :
     Layout->setContentsMargins(2,2,2,2); //减小边框的宽度
     Layout->setSpacing(2);
     this->setLayout(Layout); //设置布局
-//    this->setAutoFillBackground(true); //避免工具栏显示背景图片
-
+    // this->setAutoFillBackground(true); //避免工具栏显示背景图片
     this->setAttribute(Qt::WA_DeleteOnClose);
+
+    isFormSaved = false;
+    isUntitled = false;
 }
 
 QFormDoc::QFormDoc(QWidget *parent, const QString pFileName):
@@ -51,7 +53,7 @@ QFormDoc::QFormDoc(QWidget *parent, const QString pFileName):
 {
     ui->setupUi(this);
 
-//使用UI设计的Actions设计工具栏
+    // 使用UI设计的Actions设计工具栏
     QToolBar* locToolBar = new QToolBar(tr("文档"),this); //创建工具栏
     locToolBar->addAction(ui->actOpen);
     locToolBar->addAction(ui->actFont);
@@ -65,7 +67,7 @@ QFormDoc::QFormDoc(QWidget *parent, const QString pFileName):
     locToolBar->addAction(ui->actClose);
 
     locToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-//    locToolBar->setAutoFillBackground(true);
+    // locToolBar->setAutoFillBackground(true);
 
     QVBoxLayout *Layout = new QVBoxLayout();
     Layout->addWidget(locToolBar); //设置工具栏和编辑器上下布局
@@ -73,7 +75,7 @@ QFormDoc::QFormDoc(QWidget *parent, const QString pFileName):
     Layout->setContentsMargins(2,2,2,2); //减小边框的宽度
     Layout->setSpacing(2);
     this->setLayout(Layout); //设置布局
-//    this->setAutoFillBackground(true); //避免工具栏显示背景图片
+    // this->setAutoFillBackground(true); //避免工具栏显示背景图片
 
     this->setAttribute(Qt::WA_DeleteOnClose);
 
@@ -84,7 +86,7 @@ QFormDoc::QFormDoc(QWidget *parent, const QString pFileName):
 
 QFormDoc::~QFormDoc()
 {
-//    QMessageBox::information(this, "消息", "QFormDoc对象被删除和释放");
+    // QMessageBox::information(this, "消息", "QFormDoc对象被删除和释放");
     delete ui;
 }
 
@@ -114,9 +116,9 @@ void QFormDoc::loadFromFile(const QString &aFileName)
 
 void QFormDoc::on_actOpen_triggered()
 {
-//    curPath=QCoreApplication::applicationDirPath(); //获取应用程序的路径
+    // curPath=QCoreApplication::applicationDirPath(); //获取应用程序的路径
     QString curPath=QDir::currentPath();
-//调用打开文件对话框打开一个文件
+    //调用打开文件对话框打开一个文件
     QString aFileName=QFileDialog::getOpenFileName(this,tr("打开一个文件"),curPath,
                  "C程序文件文件(*.h *cpp);;文本文件(*.txt);;所有文件(*.*)");
 
@@ -136,5 +138,66 @@ void QFormDoc::on_actFont_triggered()
     ui->plainTextEdit->setFont(font);
 
 }
+
+// add by yg@20191024
+bool QFormDoc::isFormWindowSaved()
+{
+    // 当前文档已经被修改
+    if(ui->plainTextEdit->document()->isModified() && !isFormSaved)
+    {
+        QMessageBox box(this);
+        box.setWindowTitle(tr("Warning"));
+        box.setIcon(QMessageBox::Warning);
+        box.setText(tr("Save the changes to\r") + mCurrentFile + "?");
+        QPushButton *yesBtn = box.addButton(tr("Yes"), QMessageBox::YesRole);
+        QPushButton *noBtn = box.addButton(tr("No"), QMessageBox::NoRole);
+        QPushButton *cancelBtn = box.addButton(tr("Cancle"), QMessageBox::RejectRole);
+        box.exec();
+        QPushButton* clickedButton = (QPushButton*)box.clickedButton();
+        if(clickedButton == yesBtn)
+            //return save();
+            return false;
+        else if(clickedButton == noBtn)
+            return true;
+        else if(clickedButton == cancelBtn)
+            return false;
+    }
+    // 若文档未被修改
+    return true;
+}
+
+// add by yg@20191024
+bool QFormDoc::saveFormWindow(const QString &fileName)
+{
+    QFile file(filename);
+    if (!file.open(QIODevice::WriteOnly | QFile::Text)){
+        ;
+    }
+    QTextStream out(&file);
+    // 鼠标指针变为等待状态
+    QApplication::setOverrideCursor(Qt::WaitCursor);
+    QStrng text = ui->plainTextEdit->toPlainText();
+    out << text;
+    file.flush();
+    file.close();
+    // 鼠标指针恢复为原来的状态
+    QApplication::restoreOverrideCursor();
+    isFormSaved = true;
+    return true;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

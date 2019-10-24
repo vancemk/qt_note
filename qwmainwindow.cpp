@@ -229,20 +229,27 @@ void QWMainWindow::on_QWMainWindow_customContextMenuRequested(const QPoint &pos)
 }
 
 // add by yg@20191024
+// @brief 新建 tab 窗口
 void QWMainWindow::on_action_N_Ctrl_N_triggered()
 {
     //创建QFormDoc窗体，并在tabWidget中显示
     int cur;
-    if (0 == ui->tabWidget->count()) {
-        cur=ui->tabWidget->addTab(new QFormDoc(this),
-            QString::asprintf("New Tab %d",ui->tabWidget->count()+1));
-    }
-    else {
-        cur=ui->tabWidget->addTab((new QFormDoc(this)),
-            QString::asprintf("New Tab %d",ui->tabWidget->count()+1));
-    }
+    QFormDoc* tmpFDoc = new QFormDoc(this);
+    QString tmpTabName = QString::asprintf("New Tab %d",ui->tabWidget->count()+1);
+    tmpFDoc->setCurDirPath(tmpTabName);
+    tmpFDoc->setCurDirPath(QDir(QString("%1%2").arg(QString(WORKDIR))
+                               .arg(ui->comboBox->currentText())));
+    cur=ui->tabWidget->addTab(*tmpFDoc, tmpTabName);
+
 
     ui->tabWidget->setCurrentIndex(cur);
     ui->tabWidget->setVisible(true);
 
 }
+
+
+
+
+
+
+

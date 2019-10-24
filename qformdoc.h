@@ -11,15 +11,15 @@ class QFormDoc : public QWidget
 {
     Q_OBJECT
 
-private:
-    QString mCurrentFile; //当前文件
-
 public:
     explicit QFormDoc(QWidget *parent = 0);
     QFormDoc(QWidget *parent, const QString pFileName);
     ~QFormDoc();
 
     void    loadFromFile(const QString& aFileName);
+    bool    isFormWindowSaved();
+    void    setCurDirPath(QDir & pdir);
+    void    setCurFile(QString & pFilename);
 
 
 private slots:
@@ -37,6 +37,10 @@ private slots:
 
 private:
     Ui::QFormDoc *ui;
+    QString mCurrentFile;   //当前文件
+    QDir mCurDirPath;       //当前窗口文件所在路径
+    bool isFormSaved;
+    bool isUntitled;
 };
 
 #endif // QFORMDOC_H
