@@ -1,6 +1,6 @@
 ﻿#ifndef QFORMDOC_H
 #define QFORMDOC_H
-
+#include "publicheads.h"
 #include <QWidget>
 
 namespace Ui {
@@ -17,9 +17,12 @@ public:
     ~QFormDoc();
 
     void    loadFromFile(const QString& aFileName);
+    bool    saveFormWindow(const QString &fileName);
     bool    isFormWindowSaved();
-    void    setCurDirPath(QDir & pdir);
-    void    setCurFile(QString & pFilename);
+    void    setCurDirPath(const QDir & pdir);
+    void    setCurFile(const QString & pFilename);
+    QString getCurFile()const;
+    QDir    getCurDirPath()const;
 
 
 private slots:

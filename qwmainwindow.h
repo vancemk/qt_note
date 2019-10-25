@@ -77,6 +77,8 @@ private slots:
 
     void on_action_N_Ctrl_N_triggered();
 
+    void on_action_S_Ctrl_S_triggered();
+
 private:
     Ui::QWMainWindow *ui;
 };

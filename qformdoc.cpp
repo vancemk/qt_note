@@ -12,6 +12,8 @@
 
 #include    <qwmainwindow.h>
 
+//using namespace std;
+
 QFormDoc::QFormDoc(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::QFormDoc)
@@ -169,14 +171,14 @@ bool QFormDoc::isFormWindowSaved()
 // add by yg@20191024
 bool QFormDoc::saveFormWindow(const QString &fileName)
 {
-    QFile file(filename);
+    QFile file(fileName);
     if (!file.open(QIODevice::WriteOnly | QFile::Text)){
         ;
     }
     QTextStream out(&file);
     // 鼠标指针变为等待状态
     QApplication::setOverrideCursor(Qt::WaitCursor);
-    QStrng text = ui->plainTextEdit->toPlainText();
+    QString text = ui->plainTextEdit->toPlainText();
     out << text;
     file.flush();
     file.close();
@@ -186,12 +188,28 @@ bool QFormDoc::saveFormWindow(const QString &fileName)
     return true;
 }
 
+// add by yg@20191025
+void    QFormDoc::setCurDirPath(const QDir & pdir)
+{
+    this->mCurDirPath = pdir;
+}
 
+// add by yg@20191025
+void    QFormDoc::setCurFile(const QString & pFileName)
+{
+    this->mCurrentFile = pFileName;
+}
 
+QString    QFormDoc::getCurFile()const
+{
+    return this->mCurrentFile;
+    //std::cout << "hello world" << std::endl;
+}
 
-
-
-
+QDir    QFormDoc::getCurDirPath()const
+{
+    return this->mCurDirPath;
+}
 
 
 

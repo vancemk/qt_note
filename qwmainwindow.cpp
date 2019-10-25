@@ -190,7 +190,6 @@ void QWMainWindow::on_QWMainWindow_customContextMenuRequested(const QPoint &pos)
     QAction *pNewTask = new QAction(tr("新建任务"), this);
     QAction *pEditTask = new QAction(tr("设置任务"), this);
     QAction *pDeleteTask = new QAction(tr("删除任务"), this);
-
     QAction *pToolRenName = new QAction(tr("改名工具"), this);
     QAction *pToolEdot = new QAction(tr("设置工具"), this);
     QAction *pToolDelete = new QAction(tr("删除工具"), this);
@@ -236,16 +235,32 @@ void QWMainWindow::on_action_N_Ctrl_N_triggered()
     int cur;
     QFormDoc* tmpFDoc = new QFormDoc(this);
     QString tmpTabName = QString::asprintf("New Tab %d",ui->tabWidget->count()+1);
-    tmpFDoc->setCurDirPath(tmpTabName);
+    tmpFDoc->setCurFile(tmpTabName);
     tmpFDoc->setCurDirPath(QDir(QString("%1%2").arg(QString(WORKDIR))
                                .arg(ui->comboBox->currentText())));
-    cur=ui->tabWidget->addTab(*tmpFDoc, tmpTabName);
-
+    cur=ui->tabWidget->addTab(tmpFDoc, tmpTabName);
 
     ui->tabWidget->setCurrentIndex(cur);
     ui->tabWidget->setVisible(true);
-
 }
+
+// add by yg@20191025
+// @brief 工具栏 文件->保存
+void QWMainWindow::on_action_S_Ctrl_S_triggered()
+{
+    int index = ui->tabWidget->currentIndex();
+    ui->tabWidget->setCurrentIndex(index);
+
+    QFormDoc *tFDoc =  (QFormDoc *)ui->tabWidget->currentWidget();
+    QString tFileName = tFDoc->getCurFile();
+    QDir tDirPath = tFDoc->getCurDirPath();
+    tFDoc->saveFormWindow(tDirPath.absolutePath() + "/" + tFileName);
+    log_msg("save file %s successfully!",
+            (tDirPath.absolutePath() + "/" + tFileName).toStdString().c_str());
+}
+
+
+
 
 
 
